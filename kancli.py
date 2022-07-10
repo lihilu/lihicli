@@ -8,7 +8,7 @@ from tabulate import tabulate
 myUrl = 'https://kandula.ops.club/'
 
 @click.group()
-@click.option('--debug/--no-debug', is_flag=True, default=False, help="Print debugging messages")
+@click.option('--debug/--no-debug', is_flag=True, default=False, help="Print debugging messages. Default is False")
 @click.pass_context
 def kancli(ctx, debug):
      click.secho('Welcome to kancli \n', fg="cyan", bold=True, underline=True)
@@ -23,7 +23,7 @@ def init_logging(debug_enabled: bool):
     logging.StreamHandler(stream=None)
     logger.setLevel(logging.INFO)
     file_handler = logging.handlers.RotatingFileHandler(
-        filename='kandula.log', maxBytes=5000000, backupCount=10)
+        filename='kancli.log', maxBytes=5000000, backupCount=10)
     logger.addHandler(file_handler)
     if debug_enabled:
         logger.setLevel(logging.DEBUG)
@@ -43,7 +43,7 @@ def exception_print(ex):
 @click.pass_context
 @click.option('-i', '--instance-id', type=str, required=True, prompt="Enter instance ID", help= "Instance you want to stop")
 def stop_instance(ctx, instance_id):
-    """Stop Instnace function"""
+    """Stop Instnace"""
     ctx.obj['logger'].debug("Running function 'stop_instance'")
     click.secho(f'stop instance: {instance_id}',fg="blue")
     value = click.confirm('Are you sure?')
@@ -63,7 +63,7 @@ def stop_instance(ctx, instance_id):
 @click.pass_context
 @click.option('-i', '--instance-id', type=str, required=True, prompt="Enter instance ID", help= "Instance you want to start")
 def start_instance(ctx, instance_id):
-    """Start Instnace function"""
+    """Start Instnace"""
     ctx.obj['logger'].debug("Running function 'start_instance'")
     click.secho(f'start instance: {instance_id}',fg="blue")
     value = click.confirm('Are you sure?')
@@ -83,7 +83,7 @@ def start_instance(ctx, instance_id):
 @click.pass_context
 @click.option('-i', '--instance-id', type=str, required=True, prompt="Enter instance ID", help= "Instance you want to start")
 def terminate_instance(ctx, instance_id):
-    """Terminate Instnace function"""
+    """Terminate Instnace"""
     ctx.obj['logger'].debug("Running function 'terminate_instance'")
     click.secho(f'terminate instance: {instance_id}',fg="blue")
     value = click.confirm('Are you sure?')
